@@ -27,21 +27,102 @@
 
         .header {
             padding: 40px 0 20px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
         .brand {
-            font-size: 48px;
-            letter-spacing: 8px;
+            font-size: 36px;
+            letter-spacing: 6px;
             font-weight: 400;
-            margin-bottom: 20px;
+            flex-shrink: 0;
+            margin-left: 40px;   /* сдвиг названия вправо */
+        }
+
+        .search-wrapper {
+            flex-grow: 0;
+            margin-right: auto;
+            margin-left: 20px;   /* сдвиг поиска вправо */
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 40px;
+            overflow: hidden;
+            max-width: 380px;
+            width: 100%;
+        }
+        .search-input-wrapper {
+            position: relative;
+            flex-grow: 1;
+        }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: #888;
+            pointer-events: none;
+        }
+        .search-input-wrapper input {
+            width: 100%;
+            padding: 8px 12px 8px 32px;
+            font-size: 14px;
+            font-family: inherit;
+            border: none;
+            outline: none;
+            background: white;
+        }
+        .search-container button {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-family: inherit;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 40px;
+            margin: 3px;
+        }
+        .search-container button:hover {
+            background: #333;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .round-btn {
+            width: 42px;
+            height: 42px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        .round-btn:hover {
+            background: #333;
         }
 
         .nav {
             display: flex;
             justify-content: center;
             gap: 40px;
-            margin-bottom: 40px;
+            margin: 20px 0 40px;
             flex-wrap: wrap;
         }
 
@@ -72,11 +153,32 @@
             letter-spacing: 4px;
         }
 
-        .hero p {
-            font-size: 18px;
-            color: #4a4a4a;
-            max-width: 600px;
-            margin: 0 auto;
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .category-item {
+            border: 1px solid #ccc;
+            border-radius: 40px;
+            background: white;
+            padding: 10px 30px;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .category-item:hover {
+            background: #1a1a1a;
+            color: white;
+            border-color: #1a1a1a;
         }
 
         .section-title {
@@ -113,19 +215,6 @@
             background: #f0f0f0;
         }
 
-        .product-title {
-            font-size: 16px;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            font-weight: 400;
-        }
-
-        .price {
-            font-size: 15px;
-            color: #4a4a4a;
-            margin-bottom: 15px;
-        }
-
         .btn {
             background: #1a1a1a;
             color: white;
@@ -136,6 +225,7 @@
             cursor: pointer;
             transition: background 0.2s;
             font-family: inherit;
+            margin-top: 10px;
         }
 
         .btn:hover {
@@ -173,9 +263,27 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
             .brand {
-                font-size: 36px;
+                text-align: center;
+                font-size: 28px;
                 letter-spacing: 4px;
+                margin-left: 0;   /* убираем отступы на мобильных */
+            }
+            .search-wrapper {
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+            }
+            .search-container {
+                max-width: 100%;
+            }
+            .action-buttons {
+                justify-content: center;
             }
             .nav {
                 gap: 20px;
@@ -186,6 +294,10 @@
             .product-grid {
                 gap: 20px;
             }
+            .category-item {
+                padding: 6px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -193,47 +305,55 @@
     <div class="container">
         <div class="header">
             <div class="brand">LACY INTIMACY</div>
-            <div class="nav">
-                <a href="#">ПОПУЛЯРНОЕ</a>
-                <a href="#">НОВИНКИ</a>
-                <a href="#">SALE</a>
-                <a href="#">СКИДКА 1 + 1 = 3</a>
+            <div class="search-wrapper">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Поиск...">
+                    </div>
+                    <button type="submit">Поиск</button>
+                </div>
             </div>
+            <div class="action-buttons">
+                <a href="#" class="round-btn">♥</a>
+                <a href="#" class="round-btn">🛒</a>
+            </div>
+        </div>
+
+        <div class="nav">
+            <a href="#">ПОПУЛЯРНОЕ</a>
+            <a href="#">НОВИНКИ</a>
+            <a href="#">SALE</a>
+            <a href="#">СКИДКА 1 + 1 = 3</a>
         </div>
 
         <div class="hero">
             <h2>УСПЕЙ И ЗАБЕРИ СКИДКИ 50%</h2>
-            <p>Популярное • Новинки • Sale • Вам понравится</p>
+        </div>
+
+        <div class="categories">
+            <div class="category-item">Популярное</div>
+            <div class="category-item">Новинки</div>
+            <div class="category-item">Sale</div>
+            <div class="category-item">Вам понравится</div>
         </div>
 
         <h2 class="section-title">СКИДКА</h2>
         <div class="product-grid">
-            <!-- Товар 1 -->
             <div class="product-card">
                 <img class="product-image" src="https://i.pinimg.com/736x/84/70/10/847010632c6b93c74b6ed22d1e89779e.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 39.00</div>
                 <button class="btn">В КОРЗИНУ</button>
             </div>
-            <!-- Товар 2 -->
             <div class="product-card">
                 <img class="product-image" src="https://i.pinimg.com/736x/9c/a7/6b/9ca76b998adf2b0e767f06fb4a90efc5.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 49.00</div>
                 <button class="btn">В КОРЗИНУ</button>
             </div>
-            <!-- Товар 3 -->
             <div class="product-card">
                 <img class="product-image" src="https://i.pinimg.com/736x/27/0c/46/270c467e2e931d386f5da635b02b83d1.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 29.00</div>
                 <button class="btn">В КОРЗИНУ</button>
             </div>
-            <!-- Товар 4 -->
             <div class="product-card">
                 <img class="product-image" src="https://i.pinimg.com/736x/42/20/4b/42204b3a835d5e7f374dae947c4d9c89.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 59.00</div>
                 <button class="btn">В КОРЗИНУ</button>
             </div>
         </div>
@@ -244,32 +364,20 @@
         </div>
 
         <div class="product-grid">
-            <!-- Товар 5 -->
             <div class="product-card">
-                <img class="product-image" src="https://i.pinimg.com/736x/e9/5b/ba/e95bba72da0227528a42853ea8c1a95e.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 34.00</div>
+                <img class="product-image" src="https://i.pinimg.com/1200x/2e/cb/a9/2ecba9c7450222dd51dba5281457d40e.jpg" alt="Product">
                 <button class="btn">В КОРЗИНУ</button>
             </div>
-            <!-- Товар 6 -->
             <div class="product-card">
                 <img class="product-image" src="https://i.pinimg.com/736x/02/c5/37/02c537259ea2f7074797daaf74b1b16b.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 44.00</div>
                 <button class="btn">В КОРЗИНУ</button>
             </div>
-            <!-- Товар 7 -->
             <div class="product-card">
                 <img class="product-image" src="https://i.pinimg.com/736x/ec/ae/e6/ecaee666c80a22fe02a5d2ce7fce7350.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 39.00</div>
                 <button class="btn">В КОРЗИНУ</button>
             </div>
-            <!-- Товар 8 -->
             <div class="product-card">
                 <img class="product-image" src="https://i.pinimg.com/736x/ca/08/bc/ca08bcdae17b8db0f393dd36a642c980.jpg" alt="Product">
-                <div class="product-title">PRODUCT NAME</div>
-                <div class="price">$ 49.00</div>
                 <button class="btn">В КОРЗИНУ</button>
             </div>
         </div>
