@@ -1,11 +1,18 @@
+<!-- ================================================================== -->
+<!-- СТРАНИЦА РЕГИСТРАЦИИ ИНТЕРНЕТ-МАГАЗИНА "LACY INTIMACY" (register.html) -->
+<!-- ================================================================== -->
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- МЕТАДАННЫЕ И ПОДКЛЮЧЕНИЯ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
+    <!-- Подключение шрифта Nanum Myeongjo (запасной) -->
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ========== 1. ПОДКЛЮЧЕНИЕ ШРИФТА JejuMyeongjo (локально) ========== */
         @font-face {
             font-family: 'JejuMyeongjo';
             src: url('/static/fonts/JejuMyeongjo.ttf') format('truetype');
@@ -15,6 +22,8 @@
         * {
             font-family: 'JejuMyeongjo', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;
         }
+
+        /* ========== 2. БАЗОВЫЕ СТИЛИ ========== */
         body {
             background: white;
             margin: 0;
@@ -24,7 +33,9 @@
             display: flex;
             flex-direction: column;
         }
-        /* Круги (кружево) */
+
+        /* ========== 3. ДЕКОРАТИВНЫЕ КРУГИ (КРУЖЕВО) ========== */
+        /* Общий класс для всех кругов */
         .lace-circle {
             position: fixed;
             background-image: url('https://i.pinimg.com/originals/f1/69/3b/f1693b97f00b9b7441519a31ef37fcca.png');
@@ -32,9 +43,10 @@
             background-repeat: no-repeat;
             background-position: center;
             border-radius: 50%;
-            pointer-events: none;
+            pointer-events: none;   /* чтобы круги не мешали кликам по форме */
             z-index: 1;
         }
+        /* Размеры и положение каждого круга (создают декоративный узор) */
         .lace-top-1 { width: 580px; height: 580px; top: -250px; left: -80px; }
         .lace-top-2 { width: 460px; height: 460px; top: -210px; left: 380px; z-index: 2; }
         .lace-top-3 { width: 380px; height: 380px; top: -175px; left: 740px; z-index: 3; }
@@ -43,7 +55,7 @@
         .lace-bottom-center { width: 320px; height: 320px; bottom: -120px; left: 65%; transform: translateX(-10%); z-index: 7; }
         .lace-bottom-right { width: 440px; height: 440px; bottom: -160px; right: -80px; z-index: 8; }
 
-        /* Контейнер формы — сильно смещён вниз */
+        /* ========== 4. КОНТЕЙНЕР ФОРМЫ ========== */
         .container {
             width: 100%;
             max-width: 560px;
@@ -52,7 +64,7 @@
             z-index: 10;
             background: transparent;
             padding: 20px;
-            margin: 220px auto 60px;
+            margin: 220px auto 60px;   /* смещено вниз, чтобы не перекрывать круги */
         }
         main {
             width: 100%;
@@ -60,6 +72,8 @@
             justify-content: center;
             flex: 1;
         }
+
+        /* ========== 5. ЗАГОЛОВОК И ЧЁРНЫЙ БЛОК ========== */
         h1 {
             font-size: 32px;
             font-weight: 800;
@@ -72,6 +86,8 @@
             padding: 18px 25px;
             margin: 0;
         }
+
+        /* ========== 6. ЭЛЕМЕНТЫ ФОРМЫ ========== */
         .form-group {
             margin-bottom: 16px;
             text-align: left;
@@ -94,8 +110,11 @@
             outline: none;
             font-weight: 400;
         }
+        /* Анимация фокуса — плавное изменение цвета границы */
         input:focus { border-bottom-color: #ccc; }
         input::placeholder { color: #aaa; font-weight: 400; }
+
+        /* Кнопка отправки формы */
         button {
             width: 60%;
             background: black;
@@ -111,7 +130,9 @@
             display: block;
         }
         button:hover { background: #333; }
-        button:active { transform: scale(0.98); }
+        button:active { transform: scale(0.98); }   /* Эффект нажатия */
+
+        /* ========== 7. FLASH-СООБЩЕНИЯ (С ИКОНКАМИ) ========== */
         .flash-messages { margin-bottom: 15px; }
         .flash {
             padding: 8px 12px;
@@ -124,7 +145,7 @@
         .flash.success { background: #1e3a2f; color: #b9f6ca; border-left: 4px solid #4caf50; }
         .flash.error { background: #3a1e1e; color: #ffb3b3; border-left: 4px solid #f44336; }
 
-        /* Подвал — прозрачный фон, без белой полосы, кружево видно */
+        /* ========== 8. ПОДВАЛ (FOOTER) – ПРОЗРАЧНЫЙ, ЧТОБЫ ВИДЕТЬ КРУЖЕВО ========== */
         footer {
             text-align: center;
             padding: 20px 0 30px;
@@ -148,9 +169,11 @@
             color: #1a1a1a;
             font-size: 20px;
             transition: color 0.2s;
+            text-decoration: none;
         }
         footer .social-links a:hover {
             color: #555;
+            text-decoration: underline;   /* подчёркивание при наведении */
         }
         footer .contacts {
             margin-top: 10px;
@@ -158,6 +181,7 @@
             color: #444;
         }
 
+        /* ========== 9. АДАПТИВНОСТЬ (МОБИЛЬНАЯ ВЕРСИЯ) ========== */
         @media (max-width: 700px) {
             .lace-top-1 { width: 400px; height: 400px; top: -180px; left: -60px; }
             .lace-top-2 { width: 310px; height: 310px; top: -150px; left: 240px; }
@@ -171,12 +195,12 @@
             footer { padding: 15px 0 20px; }
         }
         @media (max-width: 500px) {
-            .lace-circle { display: none; }
+            .lace-circle { display: none; }   /* на маленьких телефонах круги скрываем */
         }
     </style>
 </head>
 <body>
-    <!-- Круги (кружево) -->
+    <!-- Круги (кружево) – декоративный фон -->
     <div class="lace-circle lace-top-1"></div>
     <div class="lace-circle lace-top-2"></div>
     <div class="lace-circle lace-top-3"></div>
@@ -185,19 +209,27 @@
     <div class="lace-circle lace-bottom-center"></div>
     <div class="lace-circle lace-bottom-right"></div>
 
+    <!-- ОСНОВНОЙ КОНТЕНТ (MAIN) -->
     <main>
         <div class="container">
+            <!-- Заголовок страницы -->
             <h1>РЕГИСТРАЦИЯ</h1>
+
+            <!-- Чёрный блок с формой и flash-сообщениями -->
             <div class="black-box">
+                <!-- Блок для вывода flash-сообщений (серверные уведомления) -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         <div class="flash-messages">
                             {% for category, message in messages %}
+                                <!-- Сообщения выводятся с иконками (через текст, но можно добавить font-awesome) -->
                                 <div class="flash {{ category }}">{{ message }}</div>
                             {% endfor %}
                         </div>
                     {% endif %}
                 {% endwith %}
+
+                <!-- Форма регистрации, отправляется методом POST на /register -->
                 <form action="/register" method="post" id="register-form">
                     <div class="form-group">
                         <label for="username">Имя пользователя</label>
@@ -213,10 +245,13 @@
                     </div>
                 </form>
             </div>
+
+            <!-- Кнопка отправки формы (вынесена отдельно, но связана с формой через атрибут form) -->
             <button type="submit" form="register-form">Создать аккаунт</button>
         </div>
     </main>
 
+    <!-- ПОДВАЛ (FOOTER) – единый для всего сайта -->
     <footer>
         <div class="social-links">
             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
