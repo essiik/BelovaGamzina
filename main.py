@@ -130,5 +130,10 @@ def register():
 # 3. ЗАПУСК ПРИЛОЖЕНИЯ
 # ==================================================================
 if __name__ == '__main__':
+<<<<<<< Updated upstream
     init_db()                         # Создаём таблицу при старте
     app.run(debug=True, port=5001)    # Запускаем сервер на порту 5001
+=======
+    init_db()
+    app.run(debug=True, port=5001)
+>>>>>>> Stashed changes
